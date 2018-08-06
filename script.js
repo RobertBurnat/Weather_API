@@ -34,7 +34,7 @@ async function getWeather(woeid) {
                 <td>${item.applicable_date}</td>
                 <td>${Math.round(item.min_temp)}</td>
                 <td>${Math.round(item.max_temp)}</td>
-                <td><img src="${ICON_URL}${item.weather_state_abbr}.svg" style="width:32px"></td>
+                <td><img src="${ICON_URL}${item.weather_state_abbr}.svg" style="width:32px" alt="${item.weather_state_name}"></td>
                 <td>${item.weather_state_name}</td>
             </tr>
             `;
@@ -48,7 +48,12 @@ async function getWeather(woeid) {
     }
 };
 
-document.querySelector('#get').addEventListener('click', () => {
+document.querySelector('#get').addEventListener('click', getData);
+document.addEventListener('keypress', event => {
+    if(event.keyCode === 13) getData();
+});
+
+function getData() {  
    let cityName = document.querySelector('#city').value;
     if(cityName) {
         getWoeid(cityName);
@@ -57,4 +62,4 @@ document.querySelector('#get').addEventListener('click', () => {
         cityName.checkValidity();
         cityName.reportValidity(); 
     }
-});
+};
